@@ -1,0 +1,49 @@
+<div class='container'>
+  <div class='row col-lg-12 m-0'>
+    <div class='col-lg-4'>
+      <div class='card mb-4 shadow-sm'>
+        <div class='card-header'>
+          <h4 class='my-0 font-weight-normal'>User Account</h4>
+        </div>
+        <div class='card-body'>
+          <ul class='list-unstyled mt-3 mb-4'>
+            <% @user_accounts.each do |user_account| %>
+              <li><%= link_to user_account.account_number, user_account_path(user_account) %></li>
+            <% end %>
+          </ul>
+          <%= link_to 'Show all', user_accounts_path, class: 'btn btn-lg btn-block btn-outline-primary'%>
+        </div>
+      </div>
+    </div>
+    <div class='col-lg-4'>
+      <div class='card mb-4 shadow-sm'>
+        <div class='card-header'>
+          <h4 class='my-0 font-weight-normal'>Team Account</h4>
+        </div>
+        <div class='card-body'>
+          <ul class='list-unstyled mt-3 mb-4'>
+            <% @team_accounts.each do |team_account| %>
+              <li><%= link_to team_account.account_number, team_account_path(team_account) %></li>
+            <% end %>
+          </ul>
+          <%= link_to 'Show all', team_accounts_path, class: 'btn btn-lg btn-block btn-outline-primary'%>
+        </div>
+      </div>
+    </div>
+    <div class='col-lg-4'>
+      <div class='card mb-4 shadow-sm'>
+        <div class='card-header'>
+          <h4 class='my-0 font-weight-normal'>Stock Account</h4>
+        </div>
+        <div class='card-body'>
+          <ul class='list-unstyled mt-3 mb-4'>
+            <% @stock_accounts.each do |stock_account| %>
+              <li><%= link_to stock_account.account_number, stock_account_path(stock_account) %></li>
+            <% end %>
+          </ul>
+          <%= link_to 'Show all', stock_accounts_path, class: 'btn btn-lg btn-block btn-outline-primary'%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
