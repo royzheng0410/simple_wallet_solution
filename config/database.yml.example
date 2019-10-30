@@ -1,0 +1,13 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: simple_wallet_solution_development
+
+
+test:
+  <<: *default
+  database: simple_wallet_solution_test
