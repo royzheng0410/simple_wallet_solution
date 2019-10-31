@@ -1,1 +1,36 @@
-index.html.erb
+<div class='container'>
+  <h3>Team Accounts</h3>
+  <div class='row col-lg-12 m-0 p-0'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Account Number</th>
+          <th scope="col">Team Name</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @team_accounts.present? %>
+          <% @team_accounts.each do |team_account| %>
+            <tr>
+              <td><%= team_account.account_number %></td>
+              <td><%= team_account.team_name %></td>
+              <td><%= team_account.balance %></td>
+              <td>
+                <%= link_to 'Detail', team_account_path(team_account), class: 'btn btn-primary'%>
+                <%= link_to 'Request Transaction', new_transaction_path(sender_id: team_account.id), class: 'btn btn-outline-primary'%>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>
+              No records
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -10,7 +10,7 @@ Account::User.create!(account_name: 'user account', first_name: 'Tom', last_name
 Account::User.create!(account_name: 'user account', first_name: 'Brad', last_name: 'Pitt')
 Account::User.create!(account_name: 'user account', first_name: 'Orlando', last_name: 'Bloom')
 
-Account::Team.create!(account_name: 'team account', team_name: 'Account')
+Account::Team.create!(account_name: 'team account', team_name: 'Accounting')
 Account::Team.create!(account_name: 'team account', team_name: 'IT')
 Account::Team.create!(account_name: 'team account', team_name: 'Human Resource')
 

@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'kaminari'
+gem 'simple_form'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -40,6 +42,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'rspec-rails', '~> 3.8'
+  gem 'rails-controller-testing'
   gem "factory_girl_rails"
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'

@@ -1,1 +1,36 @@
-index.html.erb
+<div class='container'>
+  <h3>Stock Accounts</h3>
+  <div class='row col-lg-12 m-0 p-0'>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Account Number</th>
+          <th scope="col">Stock Name</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @stock_accounts.present? %>
+          <% @stock_accounts.each do |stock_account| %>
+            <tr>
+              <td><%= stock_account.account_number %></td>
+              <td><%= stock_account.stock_name %></td>
+              <td><%= stock_account.balance %></td>
+              <td>
+                <%= link_to 'Detail', stock_account_path(stock_account), class: 'btn btn-primary'%>
+                <%= link_to 'Request Transaction', new_transaction_path(sender_id: stock_account.id), class: 'btn btn-outline-primary'%>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>
+              No records
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

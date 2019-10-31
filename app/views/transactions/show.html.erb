@@ -1,0 +1,26 @@
+<div class='container'>
+  <h3>Transaction Record</h3>
+  <div class='row col-lg-12 m-0 p-0'>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Sender</th>
+          <td><%= @transaction.sender.display_name %></td>
+        </tr>
+        <tr>
+          <th>Receiver</th>
+          <td><%= @transaction.receiver.display_name %></td>
+        </tr>
+        <tr>
+          <th>Amount</th>
+          <td><%= @transaction.amount %></td>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td><%= @transaction.created_at.in_time_zone("Sydney") %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to 'Show all', transactions_path(account_id: @account.try(:id)), class: 'btn btn-primary'%>
+</div>

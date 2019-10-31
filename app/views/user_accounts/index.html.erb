@@ -12,17 +12,21 @@
         </tr>
       </thead>
       <tbody>
-        <% @user_accounts.each do |user_account| %>
-          <tr>
-            <td><%= user_account.account_number %></td>
-            <td><%= user_account.first_name %></td>
-            <td><%= user_account.last_name %></td>
-            <td><%= user_account.wallet.balance %></td>
-            <td>
-              <%= link_to 'Show', user_account_path(user_account), class: 'btn btn-primary'%>
-              <%= link_to 'Transfer', '#', class: 'btn btn-outline-primary'%>
-            </td>
-          </tr>
+        <% if @user_accounts.present? %>
+          <% @user_accounts.each do |user_account| %>
+            <tr>
+              <td><%= user_account.account_number %></td>
+              <td><%= user_account.first_name %></td>
+              <td><%= user_account.last_name %></td>
+              <td><%= user_account.balance %></td>
+              <td>
+                <%= link_to 'Detail', user_account_path(user_account), class: 'btn btn-primary'%>
+                <%= link_to 'Request Transaction', new_transaction_path(sender_id: user_account.id), class: 'btn btn-outline-primary'%>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <td>No records</td>
         <% end %>
       </tbody>
     </table>

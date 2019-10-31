@@ -1,0 +1,36 @@
+<div class='container'>
+  <h3><%= index_title %></h3>
+  <div class='row col-lg-12 m-0 p-0'>
+    <%= transaction_count %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Type</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @pagied_transactions.present? %>
+          <% @pagied_transactions.each do |transaction| %>
+            <tr>
+              <td><%= transaction.sender.account_number %></td>
+              <td><%= transaction.receiver.account_number %></td>
+              <td><%= transaction.transaction_type %></td>
+              <td><%= transaction.amount %></td>
+              <td><%= transaction.created_at.in_time_zone("Sydney")  %></td>
+              <td><%= link_to 'Show', transaction_path(transaction, account_id: @account.try(:id)), class: 'btn btn-primary' %></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <td>No records</td>
+        <% end %>
+      </tbody>
+    </table>
+    <%= back_path %>
+    <%= paginate @pagied_transactions %>
+  </div>
+</div>

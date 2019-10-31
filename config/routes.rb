@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :user_accounts, only: [:index, :show]
   resources :team_accounts, only: [:index, :show]
   resources :stock_accounts, only: [:index, :show]
+  resources :transactions
 end

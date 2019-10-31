@@ -1,0 +1,22 @@
+<%= simple_form_for @transaction do |f| %>
+  <div class='row col-lg-12 p-0'>
+    <div class='col-lg-3'>
+      <%= f.input :sender_id, value: params[:sender_id], readonly: true, required: false  %>
+    </div>
+
+    <div class='col-lg-3'>
+      <%= f.input :receiver_id, as: :select, collection: Account::Base.not_sender(@sender).map{|account| [account.display_name, account.id]}, prompt: 'Please select', required: false %>
+    </div>
+
+    <div class='col-lg-3'>
+      <%= f.input :transaction_type, as: :select, collection: Transaction::VALID_TYPE.values.map{|transaction_type| [transaction_type.upcase, transaction_type]}, prompt: 'Please select', required: false  %>
+    </div>
+
+    <div class='col-lg-3'>
+      <%= f.input :amount, as: :decimal, required: false %>
+    </div>
+  </div>
+  <div class='row col-lg-12'>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  </div>
+<% end %>

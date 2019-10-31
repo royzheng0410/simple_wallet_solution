@@ -9,10 +9,33 @@ class Account::Base < ApplicationRecord
   before_validation :generate_acount_number, on: :create
   before_create :build_default_wallet
 
+  scope :not_sender, ->(sender_id){
+    sender_id = sender_id.is_a?(Integer) ? sender_id : find(sender_id.id).id
+    where.not(id: sender_id)
+  }
+
+  def balance
+    wallet.balance
+  end
+
+  def display_name
+    account_name + "(#{account_number})"
+  end
+
+  protected
+
+  def decrease(amount)
+    wallet.send(:decrease, amount)
+  end
+
+  def increase(amount)
+    wallet.send(:increase, amount)
+  end
+
   private
 
   def generate_acount_number
-    self.account_number = rand(10 ** 8)
+    self.account_number = rand.to_s[2..10]
   end
 
   def build_default_wallet
