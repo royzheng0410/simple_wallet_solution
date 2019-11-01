@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple wallet solution developed using Ruby on Rails
 
 Things you may want to cover:
 
 * Ruby version
-
-* System dependencies
-
+```sh
+  2.6.3
+```
+* Rails version
+```sh
+  5.1.7
+```
 * Configuration
-
+```sh
+Has included a database.yml.example
+```
 * Database creation
-
+```sh
+rake db:create
+```
 * Database initialization
-
+```sh
+rake db:migrate db:seed
+```
 * How to run the test suite
+```sh
+rspec spec
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
