@@ -36,7 +36,7 @@ class Transaction < ApplicationRecord
         errors.add(:amount, 'exceeds available balance')
       when VALID_TYPE[:debit]
         return if receiver.balance >= amount
-        errors.add(:amount, "exceeds receiver's available balance")
+        errors.add(:amount, "exceeds receiver's available balance") #Might not needed as this might disclose how much balance the receiver has?
       end
     end
   end
