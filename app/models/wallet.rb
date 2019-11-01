@@ -1,5 +1,6 @@
 class Wallet < ApplicationRecord
   belongs_to :account, class_name: 'Account::Base'
+  validates :account, presence: true
   before_save :validate_balance
 
   private

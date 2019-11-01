@@ -4,11 +4,7 @@ describe TransactionsController, :type => :controller do
   render_views
   before do
     @user_account1 = FactoryGirl.create :user_account, first_name: 'Tom', last_name: 'Cruise'
-    @wallet1 = @user_account1.wallet
-    @wallet1.update(balance: 100.0)
     @user_account2 = FactoryGirl.create :user_account, first_name: 'Brad', last_name: 'Pitt'
-    @wallet2 = @user_account2.wallet
-    @wallet2.update(balance: 100.0)
   end
 
   describe '#new' do
@@ -18,16 +14,31 @@ describe TransactionsController, :type => :controller do
       expect(response).to render_template 'new'
     end
 
-    it 'should update transaction by 1' do
+    it 'should update transaction count by 1 upon creation' do
       transaction = transaction_params
       expect{
         post :create, params: {transaction: transaction}
       }.to change(Transaction, :count).by(1)
+      expect(response).to redirect_to transaction_path(assigns(:transaction), account_id: @user_account1.id)
+    end
+
+    it 'should process credit transaction' do
+      transaction = transaction_params
+      post :create, params: {transaction: transaction}
       @user_account1.reload
       @user_account2.reload
       expect(@user_account1.balance.to_i).to eq 90
       expect(@user_account2.balance.to_i).to eq 110
-      expect(response).to redirect_to transaction_path(assigns(:transaction), account_id: @user_account1.id)
+    end
+
+    it 'should process debit transaction' do
+      transaction = transaction_params
+      transaction['transaction_type'] = Transaction::VALID_TYPE[:debit]
+      post :create, params: {transaction: transaction}
+      @user_account1.reload
+      @user_account2.reload
+      expect(@user_account1.balance.to_i).to eq 110
+      expect(@user_account2.balance.to_i).to eq 90
     end
 
     it 'should render new page if validation fail' do
@@ -59,8 +70,6 @@ describe TransactionsController, :type => :controller do
 
     it 'should list all transactions for an account' do
       @user_account3 = FactoryGirl.create :user_account, first_name: 'Brad', last_name: 'Pitt'
-      @wallet3 = @user_account3.wallet
-      @wallet3.update(balance: 100.0)
       transaction = transaction_params
       transaction['sender_id'] = @user_account2.id
       transaction['receiver_id'] = @user_account3.id

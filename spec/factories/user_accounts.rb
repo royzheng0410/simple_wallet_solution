@@ -4,5 +4,9 @@ FactoryGirl.define do
     last_name  'Zheng'
     account_name 'user account'
     type 'Account::User'
+    after(:create) do |account|
+      wallet = account.wallet
+      wallet.update(balance: 100)
+    end
   end
 end
