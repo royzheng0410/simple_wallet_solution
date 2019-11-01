@@ -11,6 +11,7 @@
   <body>
     <%= render partial: 'header'%>
     <main role='main'>
+      <%= render partial: 'flash', flash: flash %> 
       <%= yield %>
     </main>
   </body>

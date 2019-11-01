@@ -31,10 +31,10 @@ class Transaction < ApplicationRecord
     case transaction_type
     when VALID_TYPE[:credit]
       return if sender.balance > amount
-      errors.add(:amount, 'is bigger than balance')
+      errors.add(:amount, 'exceeds available balance')
     when VALID_TYPE[:debit]
       return if receiver.balance > amount
-      errors.add(:amount, "is bigger than receiver's balance")
+      errors.add(:amount, "exceeds receiver's available balance")
     end
   end
 end

@@ -19,16 +19,16 @@ class TransactionsController < ApplicationController
     begin
       Transaction.transaction do
         if @transaction.save
-          flash[:notcie] = 'Success'
-          redirect_to transaction_path(@transaction)
+          flash[:notice] = 'Success'
+          redirect_to transaction_path(@transaction, account_id: transaction_params[:sender_id])
         else
           @sender = Account::Base.find_by_id transaction_params[:sender_id]
           render :new
         end
       end
     rescue => e
-      Rails.logger.error e.message
-      #could sent an email to admin here
+      logger.error e.message
+      #could send an email to admin here
       flash[:error] = "Oops, something went wrong"
       redirect_to root_path
     end

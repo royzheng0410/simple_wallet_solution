@@ -19,7 +19,7 @@ module TransactionsHelper
         html += link_to 'Back', user_account_path(@account), class: 'btn btn-primary'
       when "Account::Team"
         html += link_to 'Back', team_account_path(@account), class: 'btn btn-primary'
-      when "Account::Sock"
+      when "Account::Stock"
         html += link_to 'Back', stock_account_path(@account), class: 'btn btn-primary'
       end
     end
