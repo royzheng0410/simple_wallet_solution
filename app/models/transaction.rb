@@ -6,6 +6,7 @@ class Transaction < ApplicationRecord
   validates :amount, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 10000 } #at most 2 decimal and not greater than 10000
   validates :transaction_type, :inclusion => {:in => VALID_TYPE.values}
   validate :has_sufficient_balance
+  validate :sender_not_equal_to_receiver
 
   before_create :update_accounts
 
@@ -30,11 +31,16 @@ class Transaction < ApplicationRecord
   def has_sufficient_balance
     case transaction_type
     when VALID_TYPE[:credit]
-      return if sender.balance > amount
+      return if sender.balance >= amount
       errors.add(:amount, 'exceeds available balance')
     when VALID_TYPE[:debit]
-      return if receiver.balance > amount
+      return if receiver.balance >= amount
       errors.add(:amount, "exceeds receiver's available balance")
     end
+  end
+
+  def sender_not_equal_to_receiver
+    return if sender_id != receiver_id
+    errors.add(:receiver_id, "cannot equal to sender account")
   end
 end
