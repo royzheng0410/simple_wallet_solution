@@ -23,11 +23,11 @@ class Transaction < ApplicationRecord
   def update_accounts
     case transaction_type
     when VALID_TYPE[:credit]
-      sender.send(:decrease, amount)
-      receiver.send(:increase, amount)
+      sender.decrease(amount)
+      receiver.increase(amount)
     when VALID_TYPE[:debit]
-      receiver.send(:decrease, amount)
-      sender.send(:increase, amount)
+      receiver.decrease(amount)
+      sender.increase(amount)
     end
   end
 

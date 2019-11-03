@@ -22,14 +22,12 @@ class Account::Base < ApplicationRecord
     account_name + "(#{account_number})"
   end
 
-  protected
-
   def decrease(amount)
-    wallet.send(:decrease, amount)
+    wallet.decrease(amount)
   end
 
   def increase(amount)
-    wallet.send(:increase, amount)
+    wallet.increase(amount)
   end
 
   private

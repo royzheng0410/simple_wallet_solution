@@ -29,5 +29,17 @@ RSpec.describe Account::Base, type: :model do
       @account1.save
       expect(@account1.display_name).to eq "base account(#{@account1.account_number})"
     end
+
+    it 'should increase wallet balance' do
+      @account1.increase(50)
+      expect(@account1.balance).to eq 50
+    end
+
+    it 'should decrease wallet balance' do
+      @wallet = @account1.wallet
+      @wallet.update(balance: 100)
+      @account1.decrease(50)
+      expect(@account1.balance).to eq 50
+    end
   end
 end

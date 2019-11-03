@@ -3,8 +3,6 @@ class Wallet < ApplicationRecord
   validates :account, presence: true
   before_save :validate_balance
 
-  private
-
   def increase(amount)
     self.balance += amount
     self.save!
@@ -14,6 +12,8 @@ class Wallet < ApplicationRecord
     self.balance -= amount
     self.save!
   end
+
+  private
 
   def validate_balance
     return if balance >= 0
