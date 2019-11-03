@@ -1,17 +1,16 @@
 class TransactionsController < ApplicationController
+  before_action :get_account, except: [:create]
   def index
-    @account = Account::Base.find_by_id params[:account_id]
     @transactions = @account.present? ? Transaction.for_account(@account).order('created_at desc') : Transaction.all.order('created_at desc')
     @pagied_transactions = @transactions.page(params[:page]).per(20)
   end
 
   def new
-    @sender = Account::Base.find_by_id params[:sender_id]
-    unless @sender.present?
+    unless @account.present?
       flash[:alert] = 'Invalid account'
       redirect_to root_path and return 
     end
-    @transaction = Transaction.new(sender_id: @sender.id)
+    @transaction = Transaction.new(sender_id: @account.id)
   end
 
   def create
@@ -22,7 +21,7 @@ class TransactionsController < ApplicationController
           flash[:notice] = 'Success'
           redirect_to transaction_path(@transaction, account_id: transaction_params[:sender_id])
         else
-          @sender = Account::Base.find_by_id transaction_params[:sender_id]
+          @account = Account::Base.find_by_id transaction_params[:sender_id]
           render :new
         end
       end
@@ -35,7 +34,6 @@ class TransactionsController < ApplicationController
   end
 
   def show
-    @account = Account::Base.find_by_id params[:account_id]
     @transaction = Transaction.find params[:id]
   end
 
@@ -43,5 +41,9 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:sender_id, :receiver_id, :amount, :transaction_type)
+  end
+
+  def get_account
+    @account = Account::Base.find_by_id params[:account_id]
   end
 end

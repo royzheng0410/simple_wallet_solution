@@ -24,5 +24,5 @@
   </div>
   <%= link_to 'Show all', user_accounts_path, class: 'btn btn-primary'%>
   <%= link_to 'Transaction History', transactions_path(account_id: @user_account.id), class: 'btn btn-primary' %>
-  <%= link_to 'Request Transaction', new_transaction_path(sender_id: @user_account.id), class: 'btn btn-outline-primary'%>
+  <%= link_to 'Request Transaction', new_transaction_path(account_id: @user_account.id), class: 'btn btn-outline-primary'%>
 </div>

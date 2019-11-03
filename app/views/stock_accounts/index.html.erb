@@ -19,7 +19,7 @@
               <td><%= stock_account.balance %></td>
               <td>
                 <%= link_to 'Detail', stock_account_path(stock_account), class: 'btn btn-primary'%>
-                <%= link_to 'Request Transaction', new_transaction_path(sender_id: stock_account.id), class: 'btn btn-outline-primary'%>
+                <%= link_to 'Request Transaction', new_transaction_path(account_id: stock_account.id), class: 'btn btn-outline-primary'%>
               </td>
             </tr>
           <% end %>

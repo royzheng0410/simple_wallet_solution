@@ -1,11 +1,11 @@
 <%= simple_form_for @transaction do |f| %>
   <div class='row col-lg-12 p-0'>
     <div class='col-lg-3'>
-      <%= f.input :sender_id, value: params[:sender_id], readonly: true, required: false  %>
+      <%= f.input :sender_id, value: @account.id, readonly: true, required: false  %>
     </div>
 
     <div class='col-lg-3'>
-      <%= f.input :receiver_id, as: :select, collection: Account::Base.not_sender(@sender).map{|account| [account.display_name, account.id]}, prompt: 'Please select', required: false %>
+      <%= f.input :receiver_id, as: :select, collection: Account::Base.not_sender(@account).map{|account| [account.display_name, account.id]}, prompt: 'Please select', required: false %>
     </div>
 
     <div class='col-lg-3'>

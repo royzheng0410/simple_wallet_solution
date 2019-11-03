@@ -9,8 +9,8 @@ describe TransactionsController, :type => :controller do
 
   describe '#new' do
     it 'should render form' do
-      get :new, params: {sender_id: @user_account1.id}
-      expect(assigns(:sender).first_name).to eq 'Tom'
+      get :new, params: {account_id: @user_account1.id}
+      expect(assigns(:account).first_name).to eq 'Tom'
       expect(response).to render_template 'new'
     end
 
